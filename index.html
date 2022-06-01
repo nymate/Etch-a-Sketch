@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETCH-A-SKETCH</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Draw something! :)</h1>
+    <div id="container"></div>
+    <button id="numberOfGrids" value="16">Reset</button>
+
+
+    <script>
+        function getRandomColor() {
+            let letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function makeAGrid(){
+            let box = document.createElement('div');
+            box.setAttribute('id', 'box');
+            container.appendChild(box); 
+            
+            for (let i=1; i<=numberOfGrids.value; i++){
+                const content = document.createElement('div');
+                content.setAttribute('id','content');
+                box.appendChild(content);
+                for (let i=1; i<=numberOfGrids.value; i++){
+                    const newRow = document.createElement('div');
+                    newRow.setAttribute('id','content');
+                    content.appendChild(newRow);
+                }
+            }
+            let boxes = document.querySelectorAll('#content');
+            boxes.forEach(box => {
+                box.addEventListener('mouseenter', () => {
+                box.style.backgroundColor = getRandomColor();
+                });    
+            });
+        }
+        
+        makeAGrid()
+
+        function changeGridNumber(){
+            document.getElementById("numberOfGrids").value = prompt("How many squares do you want per side? (Maximum 100)","");
+        }
+
+        const btn = document.querySelector('#numberOfGrids');
+        btn.addEventListener('click', () => {
+            box.remove()
+            changeGridNumber()
+            makeAGrid()
+        });
+         
+    </script>
+</body>
+</html>
